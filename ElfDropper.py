@@ -117,7 +117,7 @@ def generatePayloads(binary, binaryArgs, rawShellCode, process, url, targetHost)
                 f.write(shellcode)
                 f.close()
 
-        print("\n[+] Compile injector with informations")
+        print("\n[+] Compile dropper")
         print('generate cryptDef.h with given input ')
 
         templateFilePath = os.path.join(Path(__file__).parent, 'templateDef')
@@ -200,7 +200,7 @@ def generatePayloads(binary, binaryArgs, rawShellCode, process, url, targetHost)
 
         fileEncrypt.close()
 
-        print(' compile dropper ')
+        print('compile dropper')
         dropperElfPath = os.path.join(Path(__file__).parent, 'bin/implant')
         try:
                 os.remove(dropperElfPath)
@@ -223,6 +223,7 @@ def generatePayloads(binary, binaryArgs, rawShellCode, process, url, targetHost)
         shellcodePath = os.path.join(Path(__file__).parent, "bin")
         shellcodePath = os.path.join(shellcodePath, shellcodeFile)
 
+        print('\n[+] Check generated files')
         if not os.path.isfile(dropperElfPath):
                 print("[+] Error: Dropper file don't exist")
                 return "", ""
