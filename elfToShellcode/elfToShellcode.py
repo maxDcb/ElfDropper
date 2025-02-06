@@ -1,12 +1,11 @@
 import sys
 from pwn import *
 
-context.arch = 'amd64'
-context.bits = 64
-
-
 
 def generateShellcode(elf_file, sysArgs, shellcodeFile):
+    
+    context.arch = 'amd64'
+    context.bits = 64
 
     arg_list = ''
     
@@ -87,9 +86,14 @@ def generateShellcode(elf_file, sysArgs, shellcodeFile):
     #print(sc)
     # open("/proc/self/fd/1","wb").write(asm(sc) + elf_data)
 
-    shellcode = asm(sc) + elf_data
-    with open(shellcodeFile, "wb") as file:
-        file.write(shellcode)
+    try:
+        shellcode = asm(sc) + elf_data
+        with open(shellcodeFile, "wb") as file:
+                file.write(shellcode)
+        return True
+    except Exception as e:
+        print("[+] Error: ", e)
+        return False
 
 
 def main():
