@@ -2,3 +2,5 @@ run.so
 run.elf
 cryptDef.h
 clearDef.h
+__pycache__
+test.so
