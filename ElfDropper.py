@@ -8,6 +8,7 @@ import string
 import subprocess
 from urllib.parse import urlparse
 from pathlib import Path
+import stat
 
 import sys
 elfToShellcodeModule = os.path.join(Path(__file__).parent, 'elfToShellcode')
@@ -213,6 +214,9 @@ def generatePayloads(binary, binaryArgs, rawShellCode, process, url, targetHost)
                 pass
 
         compileScript = os.path.join(Path(__file__).parent, 'compile.sh')
+        st = os.stat(compileScript)
+        os.chmod(compileScript, st.st_mode | stat.S_IEXEC)
+        
         args = compileScript.split()
         popen = subprocess.Popen(args, stdout=subprocess.PIPE, cwd=Path(__file__).parent)
         popen.wait()
